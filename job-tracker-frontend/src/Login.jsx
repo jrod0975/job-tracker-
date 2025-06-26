@@ -1,11 +1,38 @@
 import { div } from "framer-motion/client"
+import { useState } from "react"
 
 
 function Login({changeScreen}){
 
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
 
-    function logInOnClick(){
-        changeScreen("dashboard")
+
+
+    async function logInOnClick(){
+        try{
+            const response = await fetch("http://localhost:5000/", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({username, password}),
+            })
+            const data = await response.json()
+            console.log(data)
+
+            if (data.success){
+                changeScreen("dashboard")
+            }
+            else{
+                alert("No")
+            }
+        }catch (error){
+            console.error("There was an error in the backend", error)
+        }
+        
+    }
+
+    function signUpOnClick(){
+        changeScreen("signup")
     }
 
 
@@ -18,11 +45,14 @@ function Login({changeScreen}){
         </div>
 
         <div className="login-fields">
-            <input className="user-field" type="text" placeholder="Username"/>
-            <input className="password-field" type="text" placeholder="Password"/>
+            <input className="user-field" type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+            <input className="password-field" type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
 
             <div className="login-button-field">
                 <button onClick={logInOnClick} className="login-button">Login</button>
+            </div>
+             <div className="login-button-field">
+                <button onClick={signUpOnClick} className="login-button">Sign Up</button>
             </div>
 
         </div>

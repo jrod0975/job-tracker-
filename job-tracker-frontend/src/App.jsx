@@ -5,6 +5,7 @@ import Dashboard from './Dashboard'
 import Applications from './Applications'
 import AddNew from './AddNew'
 import Login from './Login'
+import SignUp from './SignUp'
 
 
 function App() {
@@ -64,6 +65,11 @@ function App() {
   if (screen === "login"){
     return<>
       <Login changeScreen={changeScreen}/>
+    </>
+  }
+  else if (screen === "signup"){
+    return <>
+      <SignUp changeScreen={changeScreen}/>
     </>
   }
 
