@@ -4,12 +4,18 @@ const cors = require('cors')
 const app = express()
 const PORT = process.env.PORT || 5555;
 
-app.use(cors())
+app.use(cors({
+    origin: "http://localhost:5173"
+}))
 
 app.use(express.json())
 
 app.get('/', (req, res) => {
     res.json({message: "This is the backend"})
+})
+
+app.get('/test', (req, res) => {
+    res.json({message: "HELLO THIS IS A TEST from the backend"})
 })
 
 app.post("/", (req, res) => {
